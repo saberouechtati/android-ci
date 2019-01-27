@@ -1,3 +1,3 @@
 # android-ci
 
-GitLab CI build and test environment for Android applications.
+GitLab CI image for building and testing Android applications.
