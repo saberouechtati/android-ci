@@ -53,7 +53,7 @@ RUN apt-get -qq update && \
 RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
-RUN wget -nv https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip && unzip tools_r${VERSION_SDK_TOOLS}-linux.zip -d /sdk && \
+RUN wget -nv https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip && unzip tools_r${VERSION_SDK_TOOLS}-linux.zip -d /sdk && \
     rm -v tools_r${VERSION_SDK_TOOLS}-linux.zip
 
 RUN wget -nv https://pypi.python.org/packages/1e/8e/40c71faa24e19dab555eeb25d6c07efbc503e98b0344f0b4c3131f59947f/vnc2flv-20100207.tar.gz && tar -zxvf vnc2flv-20100207.tar.gz && rm vnc2flv-20100207.tar.gz && \
