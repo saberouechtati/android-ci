@@ -21,8 +21,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir -p $ANDROID_HOME/licenses/
 
 RUN apt-get -qq update && \
-    apt-get -o Dpkg::Options::="--force-overwrite" install -y whatever openjdk-9-jdk && \
-    apt-get install -y whatever -qqy --no-install-recommends apt-utils \
+    apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-9-jdk && \
+    apt-get install -y -qqy --no-install-recommends apt-utils \
       curl \
       html2text \
       libc6-i386 \
