@@ -20,7 +20,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Create licenses dir
 RUN mkdir -p $ANDROID_HOME/licenses/
 
-RUN echo oracle-java8-installer shared/accepted-oracle-licence-v1-1 boolean true | sudo /usr/bin/debconf-set-selections
+RUN echo oracle-java8-installer shared/accepted-oracle-licence-v1-1 boolean true | /usr/bin/debconf-set-selections
 
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
