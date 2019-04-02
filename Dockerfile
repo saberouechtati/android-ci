@@ -20,11 +20,13 @@ ENV DEBIAN_FRONTEND noninteractive
 # Create licenses dir
 RUN mkdir -p $ANDROID_HOME/licenses/
 
+RUN echo oracle-java8-installer shared/accepted-oracle-licence-v1-1 boolean true | sudo /usr/bin/debconf-set-selections
+
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
       curl \
       html2text \
-      openjdk-8-jdk \
+      oracle-java8-installer \
       libc6-i386 \
       lib32stdc++6 \
       lib32gcc1 \
@@ -35,8 +37,6 @@ RUN apt-get -qq update && \
 
 RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
-    
-RUN sudo update-ca-certificates -f
 
 ADD http://dl.google.com/android/repository/tools_r${VERSION_SDK_TOOLS}-linux.zip /tools.zip
 RUN unzip /tools.zip -d /sdk && \
