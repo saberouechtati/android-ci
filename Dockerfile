@@ -21,7 +21,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir -p $ANDROID_HOME/licenses/
 
 RUN apt-get -qq update && \
-    apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-9-jdk && \
+    apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-10-jdk && \
     apt-get install -y -qqy --no-install-recommends apt-utils \
       curl \
       html2text \
