@@ -32,6 +32,9 @@ RUN apt-get -qq update && \
       lib32z1 \
       unzip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    
+RUN rm -f /etc/ssl/certs/java/cacerts; \
+    /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
 ADD http://dl.google.com/android/repository/tools_r${VERSION_SDK_TOOLS}-linux.zip /tools.zip
 RUN unzip /tools.zip -d /sdk && \
