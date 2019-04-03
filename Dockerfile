@@ -20,11 +20,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # Create licenses dir
 RUN mkdir -p $ANDROID_HOME/licenses/
 
-RUN apt purge openjdk-9-jdk openjdk-8-jdk java-common
-
-RUN apt-get -qq update && \
-    apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-9-jdk && \
+RUN apt-get -qq update && \    
     apt-get install -y -qqy --no-install-recommends apt-utils \
+      openjdk-9-jdk \
       curl \
       html2text \
       libc6-i386 \
