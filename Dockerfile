@@ -21,7 +21,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir -p $ANDROID_HOME/licenses/
 
 RUN apt-get -qq update && \
-    apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-10-jdk && \
+    apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-9-jdk && \
     apt-get install -y -qqy --no-install-recommends apt-utils \
       curl \
       html2text \
@@ -32,9 +32,6 @@ RUN apt-get -qq update && \
       lib32z1 \
       unzip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN rm -f /etc/ssl/certs/java/cacerts; \
-    /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
 ADD http://dl.google.com/android/repository/tools_r${VERSION_SDK_TOOLS}-linux.zip /tools.zip
 RUN unzip /tools.zip -d /sdk && \
