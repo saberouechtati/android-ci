@@ -4,7 +4,7 @@
 # https://hub.docker.com/r/sabero/android-ci/
 #
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Sucipto <chip@pringstudio.com>
 
 ENV VERSION_SDK_TOOLS "25.2.2"
@@ -22,7 +22,7 @@ RUN mkdir -p $ANDROID_HOME/licenses/
 
 RUN apt-get -qq update && \
     apt-get install -y -qqy --no-install-recommends \
-      openjdk-8-jdk \
+      default-jdk \
       libc6-i386 \
       lib32stdc++6 \
       lib32gcc1 \
