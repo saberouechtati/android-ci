@@ -28,6 +28,7 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
 
 RUN apt-get -qq update && \
     apt-get install -y -qqy --no-install-recommends \
+      sudo \
       openjdk-8-jdk \
       ca-certificates-java \
       bzip2 \
@@ -41,6 +42,11 @@ RUN apt-get -qq update && \
       lib32z1 \
       unzip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+
+USER docker
+CMD /bin/bash
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure   
     
