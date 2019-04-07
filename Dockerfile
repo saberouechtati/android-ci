@@ -7,9 +7,12 @@
 FROM ubuntu:18.04
 MAINTAINER Sabero <saberouechtati@gmail.com>
 
-ENV VERSION_SDK_TOOLS "4333796"
-ENV VERSION_BUILD_TOOLS "28"
-ENV VERSION_TARGET_SDK "28"
+ENV VERSION_SDK_TOOLS "3859397"
+ENV VERSION_BUILD_TOOLS "26.1.1"
+ENV VERSION_TARGET_SDK "26"
+
+ENV DBUILD_OPENJDK_VERSION 8u72-b15-1~bpo8+1
+ENV DBUILD_CA_CERTIFICATES_JAVA_VERSION 20140324
 
 ENV SDK_PACKAGES "build-tools-${VERSION_BUILD_TOOLS},android-${VERSION_TARGET_SDK},addon-google_apis-google-${VERSION_TARGET_SDK},platform-tools,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
 
@@ -28,11 +31,12 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
 
 RUN apt-get -qq update && \
     apt-get install -y -qqy --no-install-recommends \
+      openjdk-8-jdk="$DBUILD_OPENJDK_VERSION" \
+      ca-certificates-java="$DBUILD_CA_CERTIFICATES_JAVA_VERSION" \
       bzip2 \
       curl \
       git-core \
       html2text \
-      default-jdk \
       libc6-i386 \
       lib32stdc++6 \
       lib32gcc1 \
@@ -41,8 +45,7 @@ RUN apt-get -qq update && \
       unzip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
-RUN rm -f /etc/ssl/certs/java/cacerts; \
-    /var/lib/dpkg/info/ca-certificates-java.postinst configure
+RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure    
     
 RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
