@@ -49,10 +49,6 @@ RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_S
     rm -v /sdk.zip
 
 RUN mkdir -p /root/.android && \
-  touch /root/.android/repositories.cfg && \
-  ${ANDROID_HOME}/tools/bin/sdkmanager --update 
+  touch /root/.android/repositories.cfg 
 
-RUN while read -r package; do PACKAGES="${PACKAGES}${package} "; done < /sdk/packages.txt && \
-    ${ANDROID_HOME}/tools/bin/sdkmanager ${PACKAGES}
-
-RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
+RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/android update sdk -u -a -t ${SDK_PACKAGES}
