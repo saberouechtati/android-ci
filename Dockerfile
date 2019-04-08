@@ -43,10 +43,11 @@ RUN apt-get -qq update && \
       unzip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+RUN adduser --disabled-password --gecos '' docker
+RUN adduser docker sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER docker
-CMD /bin/bash
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure   
     
