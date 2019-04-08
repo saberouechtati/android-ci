@@ -24,12 +24,21 @@ RUN mkdir -p $ANDROID_HOME/licenses/ \
   && echo -e "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > $ANDROID_HOME/licenses/google-gdk-license \
   && echo -e "601085b94cd77f0b54ff86406957099ebe79c4d6" > $ANDROID_HOME/licenses/android-googletv-license \
   && echo -e "d975f751698a77b662f1254ddbeed3901e976f5a" > $ANDROID_HOME/licenses/intel-android-extra-license \
-  && echo -e "e9acab5b5fbb560a72cfaecce8946896ff6aab9d" > $ANDROID_HOME/licenses/mips-android-sysimage-license 
-
+  && echo -e "e9acab5b5fbb560a72cfaecce8946896ff6aab9d" > $ANDROID_HOME/licenses/mips-android-sysimage-license
+  
 RUN apt-get -qq update && \
     apt-get install -y -qqy --no-install-recommends \
-      sudo \
-      openjdk-8-jdk \
+      sudo
+  
+RUN adduser --disabled-password --gecos '' docker
+RUN adduser docker sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER docker
+
+RUN sudo apt-get -qq update && \
+    sudo apt-get install -y -qqy --no-install-recommends \
+      default-jdk \
       ca-certificates-java \
       bzip2 \
       git-core \
@@ -50,7 +59,7 @@ USER docker
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
     
-ADD https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip
+ADD https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip /tools.zip
 RUN sudo unzip /tools.zip -d /sdk && \
     sudo rm -v /tools.zip
 
