@@ -8,8 +8,8 @@ FROM ubuntu:18.04
 MAINTAINER Sabero <saberouechtati@gmail.com>
 
 ENV VERSION_SDK_TOOLS "3859397"
-ENV VERSION_BUILD_TOOLS "26.1.1"
-ENV VERSION_TARGET_SDK "26"
+ENV VERSION_BUILD_TOOLS "25"
+ENV VERSION_TARGET_SDK "25"
 
 ENV SDK_PACKAGES "build-tools-${VERSION_BUILD_TOOLS},android-${VERSION_TARGET_SDK},addon-google_apis-google-${VERSION_TARGET_SDK},platform-tools,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
 
