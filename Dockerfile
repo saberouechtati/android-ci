@@ -49,13 +49,7 @@ RUN sudo apt-get -qq update && \
       lib32ncurses5 \
       lib32z1 \
       unzip \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-    
-RUN adduser --disabled-password --gecos '' docker
-RUN adduser docker sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-USER docker
+    && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
     
