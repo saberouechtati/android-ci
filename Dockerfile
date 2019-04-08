@@ -32,7 +32,6 @@ RUN apt-get -qq update && \
       openjdk-8-jdk \
       ca-certificates-java \
       bzip2 \
-      curl \
       git-core \
       html2text \
       libc6-i386 \
@@ -49,13 +48,13 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER docker
     
-RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure   
+RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
     
-RUN sudo curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
-    unzip /sdk.zip -d /sdk && \
-    rm -v /sdk.zip
+ADD https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip
+RUN sudo unzip /tools.zip -d /sdk && \
+    sudo rm -v /tools.zip
 
 RUN sudo mkdir -p /root/.android && \
-  touch /root/.android/repositories.cfg 
+    sudo touch /root/.android/repositories.cfg 
 
 RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/android update sdk -u -a -t ${SDK_PACKAGES}
