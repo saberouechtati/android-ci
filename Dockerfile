@@ -7,7 +7,7 @@
 FROM ubuntu:18.04
 MAINTAINER Sabero <saberouechtati@gmail.com>
 
-ENV VERSION_SDK_TOOLS "3859397"
+ENV VERSION_SDK_TOOLS "25.2.2"
 ENV VERSION_BUILD_TOOLS "25"
 ENV VERSION_TARGET_SDK "25"
 
@@ -37,8 +37,8 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER docker
 
 RUN sudo apt-get -qq update && \
-    sudo apt-get install -y -qqy --no-install-recommends \
-      default-jdk \
+    sudo apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-9-jdk && \
+    sudo apt-get install -y -qqy --no-install-recommends apt-utils \
       ca-certificates-java \
       bzip2 \
       git-core \
@@ -53,7 +53,7 @@ RUN sudo apt-get -qq update && \
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
     
-ADD https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip /tools.zip
+ADD http://dl.google.com/android/repository/tools_r${VERSION_SDK_TOOLS}-linux.zip /tools.zip
 RUN sudo unzip /tools.zip -d /sdk && \
     sudo rm -v /tools.zip
 
