@@ -51,11 +51,11 @@ USER docker
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure   
     
-RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
+RUN sudo curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
 
-RUN mkdir -p /root/.android && \
+RUN sudo mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg 
 
 RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/android update sdk -u -a -t ${SDK_PACKAGES}
