@@ -37,8 +37,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER docker
 
-RUN source /etc/environment && \
-    echo $JAVA_HOME
+RUN echo $JAVA_HOME
 
 RUN sudo apt-get -qq update && \
     sudo apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-8-jdk && \
