@@ -55,7 +55,12 @@ RUN sudo apt-get -qq update && \
     
 RUN cd /usr/local/share/ca-certificates && \
    sudo curl -so rds-ca-2015-root.crt https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem && \
-   sudo update-ca-certificates
+   sudo update-ca-certificates && \
+   sudo ln -sf /etc/ssl/certs/java/cacerts $JAVA_HOME/jre/lib/security/cacerts
+   
+RUN sudo ls /etc/ssl/certs/
+RUN sudo ls /etc/ssl/certs/java/
+RUN sudo ls /etc/ssl/certs/java/cacerts
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
     
