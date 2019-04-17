@@ -53,6 +53,10 @@ RUN sudo apt-get -qq update && \
       unzip \
     && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
+RUN cd /usr/local/share/ca-certificates \
+ && curl -so rds-ca-2015-root.crt https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem \
+ && update-ca-certificates
+    
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
     
 ADD http://dl.google.com/android/repository/tools_r${VERSION_SDK_TOOLS}-linux.zip /tools.zip
