@@ -36,7 +36,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER docker
 
-RUN sudo apt purge openjdk-9-jdk openjdk-8-jdk java-common
+RUN sudo apt purge openjdk-8-jdk java-common
 
 RUN sudo apt-get -qq update && \
     sudo apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-8-jdk && \
