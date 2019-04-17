@@ -42,6 +42,7 @@ RUN sudo apt-get -qq update && \
     sudo apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-8-jdk && \
     sudo apt-get install -y -qqy --no-install-recommends apt-utils \
       ca-certificates-java \
+      curl \
       bzip2 \
       git-core \
       html2text \
