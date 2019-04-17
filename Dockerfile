@@ -53,9 +53,9 @@ RUN sudo apt-get -qq update && \
       unzip \
     && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
-RUN cd /usr/local/share/ca-certificates \
- && curl -so rds-ca-2015-root.crt https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem \
- && update-ca-certificates
+RUN cd /usr/local/share/ca-certificates && \
+   sudo curl -so rds-ca-2015-root.crt https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem && \
+   sudo update-ca-certificates
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
     
