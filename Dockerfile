@@ -21,11 +21,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Create licenses dir
 RUN mkdir -p $ANDROID_HOME/licenses/ \
   && echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_HOME/licenses/android-sdk-license \
-  && echo -e "84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f2910" > $ANDROID_HOME/licenses/android-sdk-preview-license \
-  && echo -e "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > $ANDROID_HOME/licenses/google-gdk-license \
-  && echo -e "601085b94cd77f0b54ff86406957099ebe79c4d6" > $ANDROID_HOME/licenses/android-googletv-license \
-  && echo -e "d975f751698a77b662f1254ddbeed3901e976f5a" > $ANDROID_HOME/licenses/intel-android-extra-license \
-  && echo -e "e9acab5b5fbb560a72cfaecce8946896ff6aab9d" > $ANDROID_HOME/licenses/mips-android-sysimage-license
+  && echo -e "84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f2910" > $ANDROID_HOME/licenses/android-sdk-preview-license
   
 RUN apt-get -qq update && \
     apt-get install -y -qqy --no-install-recommends \
@@ -43,7 +39,6 @@ RUN sudo apt-get -qq update && \
     sudo apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-8-jdk && \
     sudo apt-get install -y -qqy --no-install-recommends apt-utils \
       ca-certificates-java \
-      curl \
       bzip2 \
       git-core \
       html2text \
@@ -55,15 +50,15 @@ RUN sudo apt-get -qq update && \
       unzip \
     && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
     
-RUN cd /usr/local/share/ca-certificates && \
-   sudo curl -so rds-ca-2015-root.crt https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem && \
-   sudo update-ca-certificates
-   
-RUN sudo ls /etc/ssl/certs/java/cacerts
+RUN sudo apt-get update
+RUN sudo apt-get upgrade
+RUN sudo apt-get install wget
+Run sudo wget -P /usr/local/share/ca-certificates/cacert.org http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
+RUN update-ca-certificates
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
-RUN sudo ls /etc/ssl/certs/java/cacerts
+RUN sudo ls /etc/ssl/certs/java/
     
 ADD http://dl.google.com/android/repository/tools_r${VERSION_SDK_TOOLS}-linux.zip /tools.zip
 RUN sudo unzip /tools.zip -d /sdk && \
