@@ -14,7 +14,6 @@ ENV VERSION_TARGET_SDK "25"
 ENV SDK_PACKAGES "build-tools-${VERSION_BUILD_TOOLS},android-${VERSION_TARGET_SDK},addon-google_apis-google-${VERSION_TARGET_SDK},platform-tools,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
 
 ENV ANDROID_HOME "/sdk"
-ENV JAVA_HOME "/usr/lib/jvm/open-jdk"
 ENV PATH "$PATH:${ANDROID_HOME}/tools"
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -32,8 +31,6 @@ RUN adduser docker sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER docker
-
-RUN echo $JAVA_HOME
 
 RUN sudo apt-get -qq update && \
     sudo apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-8-jdk && \
