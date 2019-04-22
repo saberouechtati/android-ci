@@ -13,6 +13,7 @@ ENV VERSION_TARGET_SDK "25"
 
 ENV SDK_PACKAGES "build-tools-${VERSION_BUILD_TOOLS},android-${VERSION_TARGET_SDK},addon-google_apis-google-${VERSION_TARGET_SDK},platform-tools,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
 
+ENV JAVA_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
 ENV ANDROID_HOME "/sdk"
 ENV PATH "$PATH:${ANDROID_HOME}/tools"
 ENV DEBIAN_FRONTEND noninteractive
@@ -50,7 +51,7 @@ RUN sudo apt-get -qq update && \
 RUN sudo apt-get update
 RUN sudo apt-get upgrade -y
 RUN sudo apt-get install wget
-Run sudo wget -P /usr/local/share/ca-certificates/cacert.org http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
+RUN sudo wget -P /usr/local/share/ca-certificates/cacert.org http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
 RUN sudo update-ca-certificates
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
