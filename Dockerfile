@@ -16,6 +16,7 @@ ENV SDK_PACKAGES "build-tools-${VERSION_BUILD_TOOLS},android-${VERSION_TARGET_SD
 ENV JAVA_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
 ENV ANDROID_HOME "/sdk"
 ENV PATH "$PATH:${ANDROID_HOME}/tools"
+ENV PATH "$PATH:${JAVA_HOME}/bin"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Create licenses dir
@@ -27,9 +28,10 @@ RUN apt-get -qq update && \
     apt-get install -y -qqy --no-install-recommends \
       sudo
       
-RUN export JAVA_HOME=$JAVA_HOME
-RUN source /etc/environment
-RUN echo $JAVA_HOME
+# RUN export JAVA_HOME=${JAVA_HOME}
+# RUN source /etc/environment
+# RUN echo ${JAVA_HOME}
+# RUN export PATH="$PATH:${JAVA_HOME}/bin"
   
 RUN adduser --disabled-password --gecos '' docker
 RUN adduser docker sudo
