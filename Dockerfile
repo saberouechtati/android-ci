@@ -54,7 +54,7 @@ RUN sudo apt-get update
 RUN sudo apt-get upgrade -y
 RUN sudo apt-get install wget
 Run sudo wget -P /usr/local/share/ca-certificates/cacert.org http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
-RUN update-ca-certificates
+RUN sudo update-ca-certificates
     
 RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
