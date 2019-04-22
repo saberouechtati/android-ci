@@ -39,15 +39,10 @@ USER docker
 
 RUN echo $JAVA_HOME
 
-RUN sudo apt update
-RUN sudo upgrade
-RUN sudo add-apt-repository ppa:linuxuprising/java
-RUN sudo apt update
-RUN sudo apt install -y oracle-java11-installer
-
 RUN sudo apt-get -qq update && \
-    sudo apt-get -o Dpkg::Options::="--force-overwrite" \
+    sudo apt-get -o Dpkg::Options::="--force-overwrite" install -y openjdk-8-jdk && \
     sudo apt-get install -y -qqy --no-install-recommends apt-utils \
+      ca-certificates-java \
       curl \
       bzip2 \
       git-core \
@@ -59,6 +54,14 @@ RUN sudo apt-get -qq update && \
       lib32z1 \
       unzip \
     && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    
+RUN cd /usr/local/share/ca-certificates && \
+   sudo curl -so rds-ca-2015-root.crt https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem && \
+   sudo update-ca-certificates
+   
+RUN sudo ls /etc/ssl/certs/java/cacerts
+    
+RUN sudo /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
 RUN sudo ls /etc/ssl/certs/java/cacerts
     
